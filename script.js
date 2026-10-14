@@ -51,11 +51,17 @@ function shrink(file,max){return new Promise(function(res,rej){var u=URL.createO
 /* ---------- nav ---------- */
 var volOk=false;$('volok').onclick=function(){volOk=true;$('vol').style.display='none';if(AC&&AC.state==='suspended')AC.resume();show(2)};
 
+
 function updateNextButton(){
- var allowed=cur>0&&cur<7&&(!gate[cur]||ok[cur]);
- if(cur===4&&PHOTOS.length<10)allowed=false;
- $('next').style.display=allowed?'block':'none';
+ var allowed = cur>0 && cur<7 && (!gate[cur] || ok[cur]);
+
+ if(cur===4){
+  allowed = PHOTOS.length>=10;
+ }
+
+ $('next').style.display = allowed ? 'block' : 'none';
 }
+
 
 function show(i){if(i===2&&!volOk){$('vol').style.display='flex';return}
  cur=i;document.querySelectorAll('.page').forEach(function(p){p.classList.remove('on')});$('p'+i).classList.add('on');window.scrollTo(0,0);
@@ -71,13 +77,16 @@ function unlock(i){
  updateNextButton();
 }
 
+
 $('next').onclick=function(){
- if(cur===4&&PHOTOS.length<10){
+ if(cur===4 && PHOTOS.length<10){
   toast('Pehle sabhi 10 photos add karo 📸');
+  updateNextButton();
   return;
  }
  show(cur+1);
 };
+
 
 
 /* ---------- login ---------- */
