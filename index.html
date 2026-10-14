@@ -93,30 +93,6 @@ Isliye bina kisi tension ke, apne mann ki baat likhna 💖 😊<br>Isliye jo bhi
 
 <div id="toast" role="status"></div>
 <script src="script.js"></script>
- <script>
-document.addEventListener("click", function (event) {
-  const nextButton = event.target.closest("#next");
-  if (!nextButton) return;
-
-  const galleryPage = document.getElementById("p4");
-  if (!galleryPage || !galleryPage.classList.contains("on")) return;
-
-  const gallery = document.getElementById("gal");
-  const photoCount = gallery ? gallery.querySelectorAll("img").length : 0;
-
-  if (photoCount < 10) {
-    event.preventDefault();
-    event.stopImmediatePropagation();
-
-    const count = document.getElementById("gcount");
-    if (count) {
-      count.textContent =
-        "Abhi " + photoCount + "/10 photos add hui hain. Aage jaane ke liye 10 photos add karo ❤️";
-    }
-
-    alert("Pehle 10 photos add karo ❤️");
-  }
-}, true);
- </script>
+ <script src="script.js"></script>
 </body>
 </html>
