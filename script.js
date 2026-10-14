@@ -52,15 +52,21 @@ function shrink(file,max){return new Promise(function(res,rej){var u=URL.createO
 var volOk=false;$('volok').onclick=function(){volOk=true;$('vol').style.display='none';if(AC&&AC.state==='suspended')AC.resume();show(2)};
 
 
+
 function updateNextButton(){
- var allowed = cur>0 && cur<7 && (!gate[cur] || ok[cur]);
+  var allowed = cur > 0 && cur < 7 && (!gate[cur] || ok[cur]);
 
- if(cur===4){
-  allowed = PHOTOS.length>=10;
- }
+  if(cur === 4){
+    allowed = PHOTOS.length >= 10;
+  }
 
- $('next').style.display = allowed ? 'block' : 'none';
+  $('next').style.setProperty(
+    'display',
+    allowed ? 'block' : 'none',
+    'important'
+  );
 }
+
 
 
 function show(i){if(i===2&&!volOk){$('vol').style.display='flex';return}
