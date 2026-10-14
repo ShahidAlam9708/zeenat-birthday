@@ -50,16 +50,35 @@ function toast(m){var t=$('toast');t.textContent=m;t.style.display='block';clear
 function shrink(file,max){return new Promise(function(res,rej){var u=URL.createObjectURL(file),im=new Image();im.onload=function(){var s=Math.min(1,max/Math.max(im.width,im.height)),c=document.createElement('canvas');c.width=Math.round(im.width*s);c.height=Math.round(im.height*s);c.getContext('2d').drawImage(im,0,0,c.width,c.height);URL.revokeObjectURL(u);res(c.toDataURL('image/jpeg',.82))};im.onerror=rej;im.src=u})}
 /* ---------- nav ---------- */
 var volOk=false;$('volok').onclick=function(){volOk=true;$('vol').style.display='none';if(AC&&AC.state==='suspended')AC.resume();show(2)};
+
+function updateNextButton(){
+ var allowed=cur>0&&cur<7&&(!gate[cur]||ok[cur]);
+ if(cur===4&&PHOTOS.length<10)allowed=false;
+ $('next').style.display=allowed?'block':'none';
+}
+
 function show(i){if(i===2&&!volOk){$('vol').style.display='flex';return}
  cur=i;document.querySelectorAll('.page').forEach(function(p){p.classList.remove('on')});$('p'+i).classList.add('on');window.scrollTo(0,0);
  $('prog').style.width=((i+1)/TOTAL*100)+'%';
- $('next').style.display=(i>0&&i<7&&(!gate[i]||ok[i]))?'block':'none';
+ updateNextButton();
  if(i!==2)stopSong(); if(i===2&&!ok[2])startSong();
  if(i!==3){run++;document.querySelectorAll('.fb').forEach(function(x){x.remove()})}if(i===3&&got.length<WISHES.length)game();if(i===7)rain(90);
  if(i===5)resetLetter(); if(i===6&&!ok[6])quizIntro();
 }
-function unlock(i){ok[i]=1;if(cur===i)$('next').style.display='block'}
-$('next').onclick=function(){show(cur+1)};
+
+function unlock(i){
+ ok[i]=1;
+ updateNextButton();
+}
+
+$('next').onclick=function(){
+ if(cur===4&&PHOTOS.length<10){
+  toast('Pehle sabhi 10 photos add karo 📸');
+  return;
+ }
+ show(cur+1);
+};
+
 
 /* ---------- login ---------- */
 function tryLogin(){
@@ -156,6 +175,7 @@ function renderGal(){var g=$('gal');g.innerHTML='';var n=Math.max(10,PHOTOS.leng
   else{d.innerHTML='<div class="ph">＋ photo</div>';d.onclick=function(){$('file').click()}}
   g.appendChild(d)}
  $('gcount').textContent=PHOTOS.length+' / 10 photos';}
+updateNextButton();
 $('lb').onclick=function(){this.style.display='none'};
 var sendQ=Promise.resolve();
 $('file').onchange=function(e){
