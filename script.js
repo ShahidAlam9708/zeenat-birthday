@@ -23,7 +23,17 @@ var WISHES=[ // t = title (pitaari mein), b = poori wish (copy page par)
  {t:"Birthday Girl, Still Special ✨",b:"Ek baat bataun? Tumhari age badh rahi hai, par tuition wali cute aur shararti Zeenat ki image mere dimaag mein abhi bhi update nahi hui. 😂 Kuch yaadein waqt ke saath purani zaroor ho jaati hain, par unki mithaas bani rehti hai. 🤭❤️ Waise madam ji, shararaton ka software update hua ya abhi bhi wahi purana version chal raha hai? 😜😂"},
  {t:"Tumhari Little Princess 👶🏻🩷",b:"Allah tumhari chhoti si princess Anam ko hamesha hansta-muskurata rakhe aur tum dono ki zindagi pyaar, sukoon aur barkat se bhar de. 🤲❤️ Aur haan, usse apni jaisi shararatein thodi-thodi zaroor sikhana… bas tuition wali saari shararatein ek saath mat sikha dena, warna tum dono ko sambhalna mushkil ho jayega! 😂🫶"},
  {t:"Kuch Yaadein Special Hoti Hain 🥹",b:"Zindagi mein log aate-jaate rehte hain, par kuch logon ke saath judi yaadein hamesha special rehti hain… tumhari smile, tumhari baatein aur hamari tuition wali masti bhi unhi pyari yaadon mein se hain. ❤️ Waqt badal jaata hai, sab apni-apni zindagi mein aage badh jaate hain, par achhi yaadein hamesha muskurane ki wajah ban sakti hain. 🥹✨"}];
-var LETTER="Zeenat,\n\nTuition ke wo din aaj bhi yaad aate hain, jab sawalon se zyada tumhari baatein lambi chalti thi. 😁 Waqt badal gaya, aur shayad tum bhi… lekin tumhari hasi wahi, shaitaniyan wahi… ab bhi utni hi masoom ho ya apni masoomiyat thodi secret kar di hai? 🤭👀\n\nKhair… dua hai ki tumhari smile aise hi bani rahe, tumhe zindagi mein wo sab kuch milta rahe jiski tum haqdar ho. Meri treat udhaar hi hai, iss baar ki bhi aur pichle saal ki bhi. Aur sabse badi baat 🙃 tumhari shaadi ki party bhi abhi tak pending hai (pata nahi kab milegi 🙄 — shayad iss janam mein ya agle janam mein, aur mera birthday gift bhi 😝) 😁😅😂\n\nBy the way,\nHappy Birthday Zeenat 🎂\n\n— Tumhara tuition wala dost ❤️";
+
+var LETTER = `Zeenat,
+
+Tuition ke wo din aaj bhi yaad aate hain, jab sawalon se zyada tumhari baatein lambi chalti thi. 😜 Waqt badal gaya, aur shayad tum bhi... 🙃 lekin tumhari hasi wahi, shaitaniyan wahi... 🫠 ab bhi utni hi masoom ho ya apni masoomiyat thodi hide kar di ho 😝
+
+Khair... dua hai ki tumhari smile aise hi bani rahe, tumhe zindagi mein wo sab kuch milta rahe jiski tum haqdar ho.
+
+On your birthday, I just want to pray that Allah keeps you happy, gives you peace, and makes things easier for you in every phase of life. May you always have reasons to smile, people who genuinely care for you, and the happiness you deserve.
+
+Allah tumhe hamesha apni hifazat mein rakhe. ❤️`;
+
 /* ==================== */
 var $=function(i){return document.getElementById(i)},R=Math.random;
 var cur=0,ok={},gate={2:1,3:1,5:1,6:1},TOTAL=8;
