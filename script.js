@@ -183,8 +183,9 @@ function renderGal(){var g=$('gal');g.innerHTML='';var n=Math.max(10,PHOTOS.leng
   if(PHOTOS[i]){d.innerHTML='<img src="'+PHOTOS[i]+'" alt="">';(function(s){d.onclick=function(){$('lbi').src=s;$('lb').style.display='flex'}})(PHOTOS[i])}
   else{d.innerHTML='<div class="ph">＋ photo</div>';d.onclick=function(){$('file').click()}}
   g.appendChild(d)}
- $('gcount').textContent=PHOTOS.length+' / 10 photos';}
+ $('gcount').textContent=PHOTOS.length+' / 10 photos';
 updateNextButton();
+                    }
 $('lb').onclick=function(){this.style.display='none'};
 var sendQ=Promise.resolve();
 $('file').onchange=function(e){
