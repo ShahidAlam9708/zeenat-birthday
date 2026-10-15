@@ -32,10 +32,9 @@ Khair... dua hai ki tumhari smile aise hi bani rahe, tumhe zindagi mein wo sab k
 
 On your birthday, I just want to pray that Allah keeps you happy, gives you peace, and makes things easier for you in every phase of life. May you always have reasons to smile, people who genuinely care for you, and the happiness you deserve.
 
-Allah tumhe hamesha apni hifazat mein rakhe. ❤️
--Tumhara tuition wala dost`
- 
--Tumhara tuition wala dost;
+Allah tumhe hamesha apni hifazat mein rakhe. 🤲🏻
+
+— Tumhara tuition wala dost ❤️`;
 
 /* ==================== */
 var $=function(i){return document.getElementById(i)},R=Math.random;
