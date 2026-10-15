@@ -54,6 +54,22 @@
  <button class="wbox" id="wbox">💌 Wishes ki pitaari: <span id="bcount">0</span></button>
 </section>
 
+<div id="photoPopup" class="photo-popup">
+  <div class="photo-popup-box">
+    <div style="font-size:2.5rem">🙈📸</div>
+
+    <h2>Ek chhoti si baat...</h2>
+
+    <p>Sorry, mere paas tumhari photos thi hi nahi, isliye gallery mein add nahi kar paaya. 😂 Aur tumse maangi bhi nahi… warna tum sochti ki aakhir ise meri photos kyun chahiye! 🤭😏</p>
+
+    <p>Khair, ab gallery mein apni photos tum khud add kar dena, taaki meri itni mehnat aur bhi achhi lage. Aakhir tumhari photos ke bina gallery thodi adhoori si hai. 😁❤️</p>
+
+    <button class="btn" id="photoPopupBtn">
+      Chalo, gallery dekhein 📸
+    </button>
+  </div>
+</div>
+ 
 <section class="page" id="p4" style="justify-content:flex-start">
  <h2>Cute moments of birthday girl 📸</h2>
  <p class="sub">Apni pasand ki photos yahan add karo ✨</p>
@@ -104,5 +120,29 @@ Isliye bina kisi tension ke, apne mann ki baat likhna 💖 😊<br>Isliye jo bhi
 
 <div id="toast" role="status"></div>
  <script src="script.js"></script>
+<script>
+(function () {
+  var popup = document.getElementById('photoPopup');
+  var popupBtn = document.getElementById('photoPopupBtn');
+  var nextBtn = document.getElementById('next');
+  var popupDone = false;
+
+  if (!popup || !popupBtn || !nextBtn) return;
+
+  nextBtn.addEventListener('click', function (e) {
+    if (cur === 3 && !popupDone) {
+      e.preventDefault();
+      e.stopImmediatePropagation();
+      popup.style.display = 'flex';
+    }
+  }, true);
+
+  popupBtn.addEventListener('click', function () {
+    popupDone = true;
+    popup.style.display = 'none';
+    nextBtn.click();
+  });
+})();
+</script>
 </body>
 </html>
