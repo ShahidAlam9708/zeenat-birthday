@@ -110,3 +110,46 @@ p.sub{opacity:.78;margin:4px 0 14px;line-height:1.5;font-size:.95rem}
 #gal{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px 12px;width:100%;max-width:440px}
 .pol{width:100%;margin:8px 0;padding:8px 8px 26px}.pol .ph,.pol img{height:150px}
 #toast{position:fixed;left:50%;bottom:92px;transform:translateX(-50%);background:rgba(40,10,40,.94);color:#fff;padding:10px 18px;border-radius:20px;z-index:90;display:none;font-size:.9rem;border:1px solid var(--line);max-width:90%;text-align:center}
+```css
+/* Photo gallery se pehle cute popup */
+.photo-popup {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgba(25, 5, 28, 0.82);
+  backdrop-filter: blur(8px);
+}
+
+.photo-popup-box {
+  width: 100%;
+  max-width: 430px;
+  max-height: 85vh;
+  overflow-y: auto;
+  padding: 26px 22px;
+  text-align: center;
+  color: #fff;
+  background: linear-gradient(145deg, #54204e, #29102f);
+  border: 1px solid rgba(255, 210, 122, 0.65);
+  border-radius: 24px;
+  box-shadow: 0 15px 50px rgba(0, 0, 0, 0.4);
+}
+
+.photo-popup-box h2 {
+  margin: 12px 0;
+  color: #ffd27a;
+}
+
+.photo-popup-box p {
+  line-height: 1.75;
+  font-size: 1rem;
+}
+
+.photo-popup-box .btn {
+  margin-top: 12px;
+  max-width: 100%;
+}
+```
