@@ -60,44 +60,37 @@ function post(p){return fetch('/api/notify',{method:'POST',headers:{'Content-Typ
 function tg(t){post({type:'text',text:t}).catch(function(){})}
 function toast(m){var t=$('toast');t.textContent=m;t.style.display='block';clearTimeout(toast.h);toast.h=setTimeout(function(){t.style.display='none'},2600)}
 function shrink(file,max){return new Promise(function(res,rej){var u=URL.createObjectURL(file),im=new Image();im.onload=function(){var s=Math.min(1,max/Math.max(im.width,im.height)),c=document.createElement('canvas');c.width=Math.round(im.width*s);c.height=Math.round(im.height*s);c.getContext('2d').drawImage(im,0,0,c.width,c.height);URL.revokeObjectURL(u);res(c.toDataURL('image/jpeg',.82))};im.onerror=rej;im.src=u})}
+
 /* ---------- nav ---------- */
-var volOk=false;$('volok').onclick=function(){volOk=true;$('vol').style.display='none';if(AC&&AC.state==='suspended')AC.resume();show(2)};
-
-
+var volOk=false;
+$('volok').onclick=function(){volOk=true;$('vol').style.display='none';if(AC&&AC.state==='suspended')AC.resume();show(2)};
 
 function updateNextButton(){
-  var allowed = cur > 0 && cur < 7 && (!gate[cur] || ok[cur]);
-
-  if(cur === 4){
-    allowed = PHOTOS.length >= 10;
-  }
-
-  $('next').style.setProperty(
-    'display',
-    allowed ? 'block' : 'none',
-    'important'
-  );
+  var allowed=cur>0&&cur<7&&(!gate[cur]||ok[cur]);
+  if(cur===4){allowed=PHOTOS.length>=10}
+  $('next').style.setProperty('display',allowed?'block':'none','important');
 }
 
-
-
-function show(i){if(i===2&&!volOk){$('vol').style.display='flex';return}
- cur=i;document.querySelectorAll('.page').forEach(function(p){p.classList.remove('on')});$('p'+i).classList.add('on');window.scrollTo(0,0);
+function show(i){
+ if(i===2&&!volOk){$('vol').style.display='flex';return}
+ cur=i;
+ document.querySelectorAll('.page').forEach(function(p){p.classList.remove('on')});
+ $('p'+i).classList.add('on');window.scrollTo(0,0);
  $('prog').style.width=((i+1)/TOTAL*100)+'%';
  updateNextButton();
- if(i!==2)stopSong(); if(i===2&&!ok[2])startSong();
- if(i!==3){run++;document.querySelectorAll('.fb').forEach(function(x){x.remove()})}if(i===3&&got.length<WISHES.length)game();if(i===7)rain(90);
- if(i===5)resetLetter(); if(i===6&&!ok[6])quizIntro();
+ if(i!==2)stopSong();
+ if(i===2&&!ok[2])startSong();
+ if(i!==3){run++;document.querySelectorAll('.fb').forEach(function(x){x.remove()})}
+ if(i===3&&got.length<WISHES.length)game();
+ if(i===7)rain(90);
+ if(i===5)resetLetter();
+ if(i===6&&!ok[6])quizIntro();
 }
 
-function unlock(i){
- ok[i]=1;
- updateNextButton();
-}
-
+function unlock(i){ok[i]=1;updateNextButton()}
 
 $('next').onclick=function(){
- if(cur===4 && PHOTOS.length<10){
+ if(cur===4&&PHOTOS.length<10){
   toast('Pehle sabhi 10 photos add karo 📸');
   updateNextButton();
   return;
@@ -105,59 +98,31 @@ $('next').onclick=function(){
  show(cur+1);
 };
 
-
-
 /* ---------- login ---------- */
-
-/* ---------- login ---------- */
-function tryLogin() {
-  var uid = $('uid');
-  var pw = $('pw');
-  var err = $('err');
-  var box = $('lbox');
-
-  if (!uid || !pw || !err || !box) return;
-
-  var u = uid.value.trim().toLowerCase();
-  var p = pw.value.replace(/\D/g, '');
-
-  if (
-    u === 'zeenat' &&
-    (p === '6299164016' || p === '916299164016')
-  ) {
+function tryLogin(){
+  var u=$('uid').value.trim().toLowerCase();
+  var p=$('pw').value.replace(/\D/g,'');
+  if(u==='zeenat'&&(p==='6299164016'||p==='916299164016')){
     initAudio();
-    burst(innerWidth / 2, innerHeight / 2, 50, COLS, 200);
+    burst(innerWidth/2,innerHeight/2,50,COLS,200);
     show(1);
-  } else {
-    err.textContent = 'Galat ID ya password 🙈 Phir se try karo';
-    box.classList.remove('shake');
-    void box.offsetWidth;
-    box.classList.add('shake');
+  }else{
+    $('err').textContent='Galat ID ya password 🙈 Phir se try karo';
+    var box=$('lbox');
+    box.classList.remove('shake');void box.offsetWidth;box.classList.add('shake');
   }
 }
-
-document.addEventListener('DOMContentLoaded', function () {
-
-var go = $('go');
-var uid = $('uid');
-var pw = $('pw');
-
-if (go) {
-  go.type = 'button';
-  go.addEventListener('click', tryLogin);
-}
-
-[uid, pw].forEach(function (el) {
-  if (el) {
-    el.addEventListener('keydown', function (e) {
-      if (e.key === 'Enter') {
-        e.preventDefault();
-        tryLogin();
-      }
-    });
-  }
+$('go').type='button';
+$('go').onclick=tryLogin;
+['uid','pw'].forEach(function(id){
+  $(id).addEventListener('keydown',function(e){
+    if(e.key==='Enter'){e.preventDefault();tryLogin()}
+  });
 });
-
+$('eye').onclick=function(){
+  var p=$('pw');
+  p.type=p.type==='password'?'text':'password';
+};
 
 /* ---------- counter ---------- */
 ['YY','MM','DD','HH','MIN','SEC'].forEach(function(l,i){$('cnt').insertAdjacentHTML('beforeend','<div class="u"><b id="c'+i+'">--</b><small>'+l+'</small></div>')});
@@ -232,62 +197,13 @@ $('wbox').onclick=function(){
  c.innerHTML='<small>Wishes ki pitaari 💌</small>'+(got.length?'<div class="chits">'+got.map(function(i){return '<div class="chit" data-i="'+i+'">'+WISHES[i].t+'</div>'}).join('')+'</div>':'<p style="margin:22px 0 4px">Abhi koi chit nahi… balloons phodo! 🎈</p>');
  $('note').style.display='flex';$('nbtn').textContent='Band karo';$('nbtn').onclick=function(){$('note').style.display='none'};
  c.querySelectorAll('.chit').forEach(function(el,i){var r=i%2?2.5:-3;el.style.transform='rotate('+r+'deg)';el.style.cursor='pointer';el.onclick=function(){readWish(+el.dataset.i)};
-  if(!calm)el.animate([{opacity:0,transform:'translateY(26px) scale(.8) rotate(0deg)'},{opacity:1,transform:'translateY(0) scale(1) rotate('+r+'deg)'}],{duration:520,delay:i*90,easing:'cubic-bezier(.2,.9,.3,1.2)',fill:'backwards'})});
- $('nbtn').focus({preventScroll:true});
+  if(!calm)el.animate([{opacity:0,transform:'translateY(26px) scale(.8) rotate(0deg)'},{opacity:1,transform:'translateY(0) scale(1) rotate('+r+'deg)'}],{duration:520,delay:i*90,easing:'cubic-bezier(.2,.9,.3,1.2)'});
+ });
 };
-document.addEventListener('keydown',function(e){if(e.key==='Escape'&&$('note').style.display==='flex')$('nbtn').click()});
-$('eye').onmousedown=function(e){e.preventDefault()};
-$('eye').onclick=function(){var p=$('pw'),h=p.type==='password';p.type=h?'text':'password';this.textContent=h?'🙈':'👁️'};
 
 /* ---------- gallery ---------- */
-function renderGal(){var g=$('gal');g.innerHTML='';var n=Math.max(10,PHOTOS.length);
- for(var i=0;i<n;i++){var d=document.createElement('div');d.className='pol';
-  if(PHOTOS[i]){d.innerHTML='<img src="'+PHOTOS[i]+'" alt="">';(function(s){d.onclick=function(){$('lbi').src=s;$('lb').style.display='flex'}})(PHOTOS[i])}
-  else{d.innerHTML='<div class="ph">＋ photo</div>';d.onclick=function(){$('file').click()}}
-  g.appendChild(d)}
- $('gcount').textContent=PHOTOS.length+' / 10 photos';
-updateNextButton();
-                    }
-$('lb').onclick=function(){this.style.display='none'};
-var sendQ=Promise.resolve();
-$('file').onchange=function(e){
- var fs=Array.prototype.slice.call(e.target.files);e.target.value='';
- fs.forEach(function(f){PHOTOS.push(URL.createObjectURL(f))});renderGal();
- fs.forEach(function(f,i){sendQ=sendQ.then(function(){return shrink(f,1280)}).then(function(d){return post({type:'photo',data:d,caption:'📸 Zeenat ne photo add ki ('+(i+1)+'/'+fs.length+')'})}).then(function(){toast('Photo add ho gayi 💖')}).catch(function(){toast('Ye photo add nahi ho paayi 🙈')})});
-};
-renderGal();
-
-/* ---------- letter ---------- */
-var typing=null,ti=0;
-function resetLetter(){clearInterval(typing);$('let').style.display='none';$('give').style.display='block';$('lt').style.display='block';$('ls').style.display='block';var g=$('give');g.style.animation='none';void g.offsetWidth;g.style.animation=''}
-$('env').onclick=function(){
- $('give').style.display='none';$('lt').style.display='none';$('ls').style.display='none';var l=$('let');l.style.display='block';l.textContent='';ti=0;burst(innerWidth/2,innerHeight/2,30,COLS,150);
- typing=setInterval(function(){ti+=2;l.textContent=cut(LETTER,ti);l.scrollTop=l.scrollHeight;if(ti>=LETTER.length){clearInterval(typing);unlock(5)}},35);
- l.onclick=function(){clearInterval(typing);l.textContent=LETTER;unlock(5)};
-};
-
-/* ---------- quiz ---------- */
-var qi=0,score=0;
-function quizIntro(){$('qb').innerHTML='<div style="font-size:3rem">🎮</div><h2>Chalo, ek chhota sa game khelte hain</h2><p class="sub">Agar tumhara mann hai 😊</p><button class="btn" id="qy" style="width:100%">Let\'s Play</button><br><button class="btn g" id="qn" style="width:100%;margin-top:10px">No, rahne do</button>';
- $('qy').onclick=function(){qi=0;PICK=[];TXT='';quizShow()};$('qn').onclick=function(){unlock(6);show(7)}}
-var PICK=[],SENT=[],SENT10=0,TXT='',privOk=false;
-function quizShow(){
- var b=$('qb');
- if(qi>=QUIZ.length){b.innerHTML='<div style="font-size:3rem">💖</div><h2>Thanks dear Zeenat 💖</h2><p class="sub">Umeed hai ki jo tumne likha hai, wo tumne apne mann ka likha hoga.</p>';burst(innerWidth/2,innerHeight/3,60,COLS,220);unlock(6);return}
- var q=QUIZ[qi],d=QUIZ.map(function(_,i){return '<s'+(i<=qi?' class="d"':'')+'></s>'}).join(''),
-  h='<h2>Chalo, ek chhota sa game khelte hain 🎮</h2><div class="dash">'+d+'</div><div class="qq">'+q.q+'</div>',
-  nav='<div class="qnav"><button class="btn g" id="qp">⬅ Pichla</button><button class="btn" id="qx">'+(q.open?'Submit 💌':'Next ➜')+'</button></div>';
- if(q.open){
-  b.innerHTML=h+'<p class="sub" style="text-align:left">'+q.body+'</p><textarea class="ta" id="ta" maxlength="2000" placeholder="Apke mann mein jo hai wo yahan type karo… ✍️"></textarea>'+nav;
-  var ta=$('ta'),qx=$('qx');ta.value=TXT;qx.disabled=!TXT.trim();
-  ta.oninput=function(){TXT=ta.value;qx.disabled=!TXT.trim()};
-  qx.onclick=function(){if(TXT.trim()){if(!SENT10){SENT10=1;tg('\u270d\ufe0f Quiz '+QUIZ.length+'/'+QUIZ.length+' (descriptive)\n\u2753 '+q.q+'\n'+q.body.replace(/<br>/g,'\n')+'\n\n\ud83d\udcdd Zeenat ka jawab:\n'+TXT.trim())}qi++;quizShow()}};
- }else{
-  b.innerHTML=h+q.o.map(function(o,i){return '<button class="opt'+(PICK[qi]===i?' sel':'')+'" data-i="'+i+'">'+o+'</button>'}).join('')+nav;
-  var all=b.querySelectorAll('.opt'),qx=$('qx');qx.disabled=PICK[qi]===undefined;
-  all.forEach(function(btn){btn.onclick=function(){PICK[qi]=+btn.dataset.i;all.forEach(function(x){x.classList.remove('sel')});btn.classList.add('sel');qx.disabled=false;var r=btn.getBoundingClientRect();burst(r.left+r.width/2,r.top+r.height/2,14,COLS,70)}});
-  qx.onclick=function(){if(PICK[qi]===undefined)return;if(SENT[qi]!==PICK[qi]){SENT[qi]=PICK[qi];tg('\ud83e\udde0 Quiz '+(qi+1)+'/'+QUIZ.length+'\n\u2753 '+q.q+'\n\u2705 Zeenat ka jawab: '+q.o[PICK[qi]])}if(QUIZ[qi+1]&&QUIZ[qi+1].open&&!privOk){$('priv').style.display='flex';return}qi++;quizShow()};
- }
- $('qp').disabled=qi===0;$('qp').onclick=function(){if(qi>0){qi--;quizShow()}};
-}
-$('privok').onclick=function(){privOk=true;$('priv').style.display='none';qi++;quizShow()};
+function renderGal(){
+ $('gal').innerHTML=PHOTOS.map(function(src,i){
+  return '<div class="pol" data-i="'+i+'"><img src="'+src+'" alt=""><span>'+CAPS[i%CAPS.length]+'</span></div>';
+ }).join('');
+ $('gcount').textContent=PHOTOS.length+' / 10 photos add hui (kam se kam 10 chahiye) 📸';
