@@ -34,7 +34,7 @@ On your birthday, I just want to pray that Allah keeps you happy, gives you peac
 
 Allah tumhe hamesha apni hifazat mein rakhe. ❤️
 
-— Tumhara tuition wala dost`
+— Tumhara tuition wala dost`;
 
 /* ==================== */
 var $=function(i){return document.getElementById(i)},R=Math.random;
