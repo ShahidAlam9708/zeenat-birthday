@@ -137,26 +137,27 @@ function tryLogin() {
 }
 
 document.addEventListener('DOMContentLoaded', function () {
-  var go = $('go');
-  var uid = $('uid');
-  var pw = $('pw');
 
-  if (go) {
-    go.type = 'button';
-    go.onclick = tryLogin;
+var go = $('go');
+var uid = $('uid');
+var pw = $('pw');
+
+if (go) {
+  go.type = 'button';
+  go.addEventListener('click', tryLogin);
+}
+
+[uid, pw].forEach(function (el) {
+  if (el) {
+    el.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        tryLogin();
+      }
+    });
   }
-
-  [uid, pw].forEach(function (el) {
-    if (el) {
-      el.addEventListener('keydown', function (e) {
-        if (e.key === 'Enter') {
-          e.preventDefault();
-          tryLogin();
-        }
-      });
-    }
-  });
 });
+
 
 /* ---------- counter ---------- */
 ['YY','MM','DD','HH','MIN','SEC'].forEach(function(l,i){$('cnt').insertAdjacentHTML('beforeend','<div class="u"><b id="c'+i+'">--</b><small>'+l+'</small></div>')});
