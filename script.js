@@ -108,12 +108,55 @@ $('next').onclick=function(){
 
 
 /* ---------- login ---------- */
-function tryLogin(){
- var u=$('uid').value.trim().toLowerCase(),p=$('pw').value.replace(/\D/g,'');
- if(u==='zeenat'&&(p==='6299164016'||p==='916299164016')){initAudio();burst(innerWidth/2,innerHeight/2,50,COLS,200);show(1)}
- else{$('err').textContent='Galat ID ya password 🙈 Phir se try karo';var b=$('lbox');b.classList.remove('shake');void b.offsetWidth;b.classList.add('shake')}
+
+/* ---------- login ---------- */
+function tryLogin() {
+  var uid = $('uid');
+  var pw = $('pw');
+  var err = $('err');
+  var box = $('lbox');
+
+  if (!uid || !pw || !err || !box) return;
+
+  var u = uid.value.trim().toLowerCase();
+  var p = pw.value.replace(/\D/g, '');
+
+  if (
+    u === 'zeenat' &&
+    (p === '6299164016' || p === '916299164016')
+  ) {
+    initAudio();
+    burst(innerWidth / 2, innerHeight / 2, 50, COLS, 200);
+    show(1);
+  } else {
+    err.textContent = 'Galat ID ya password 🙈 Phir se try karo';
+    box.classList.remove('shake');
+    void box.offsetWidth;
+    box.classList.add('shake');
+  }
 }
-$('go').onclick=tryLogin;['uid','pw'].forEach(function(i){$(i).onkeydown=function(e){if(e.key==='Enter')tryLogin()}});
+
+document.addEventListener('DOMContentLoaded', function () {
+  var go = $('go');
+  var uid = $('uid');
+  var pw = $('pw');
+
+  if (go) {
+    go.type = 'button';
+    go.onclick = tryLogin;
+  }
+
+  [uid, pw].forEach(function (el) {
+    if (el) {
+      el.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          tryLogin();
+        }
+      });
+    }
+  });
+});
 
 /* ---------- counter ---------- */
 ['YY','MM','DD','HH','MIN','SEC'].forEach(function(l,i){$('cnt').insertAdjacentHTML('beforeend','<div class="u"><b id="c'+i+'">--</b><small>'+l+'</small></div>')});
