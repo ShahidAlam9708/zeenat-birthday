@@ -98,31 +98,73 @@ $('next').onclick=function(){
  show(cur+1);
 };
 
-/* ---------- login ---------- */
-function tryLogin(){
-  var u=$('uid').value.trim().toLowerCase();
-  var p=$('pw').value.replace(/\D/g,'');
-  if(u==='zeenat'&&(p==='6299164016'||p==='916299164016')){
+
+/* ---------- LOGIN ---------- */
+
+function tryLogin() {
+  var username = document.getElementById('uid').value
+    .trim()
+    .toLowerCase();
+
+  var password = document.getElementById('pw').value.trim();
+  var error = document.getElementById('err');
+  var box = document.getElementById('lbox');
+
+  error.textContent = '';
+
+  if (!username || !password) {
+    error.textContent = 'ID aur password dono daalo ❤️';
+    return;
+  }
+
+  if (
+    username === 'zeenat' &&
+    (password === '6299164016' ||
+     password === '916299164016')
+  ) {
     initAudio();
-    burst(innerWidth/2,innerHeight/2,50,COLS,200);
+    burst(innerWidth / 2, innerHeight / 2, 50, COLS, 200);
     show(1);
-  }else{
-    $('err').textContent='Galat ID ya password 🙈 Phir se try karo';
-    var box=$('lbox');
-    box.classList.remove('shake');void box.offsetWidth;box.classList.add('shake');
+  } else {
+    error.textContent = 'Galat ID ya password 🙈 Phir se try karo';
+
+    box.classList.remove('shake');
+    void box.offsetWidth;
+    box.classList.add('shake');
   }
 }
-$('go').type='button';
-$('go').onclick=tryLogin;
-['uid','pw'].forEach(function(id){
-  $(id).addEventListener('keydown',function(e){
-    if(e.key==='Enter'){e.preventDefault();tryLogin()}
+
+document.getElementById('go').type = 'button';
+document.getElementById('go').addEventListener('click', tryLogin);
+
+['uid', 'pw'].forEach(function(id) {
+  document.getElementById(id).addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      tryLogin();
+    }
   });
 });
-$('eye').onclick=function(){
-  var p=$('pw');
-  p.type=p.type==='password'?'text':'password';
-};
+
+/* ---------- PASSWORD SHOW / HIDE ---------- */
+
+document.getElementById('eye').type = 'button';
+
+document.getElementById('eye').addEventListener('click', function(e) {
+  e.preventDefault();
+
+  var passwordInput = document.getElementById('pw');
+  var isHidden = passwordInput.type === 'password';
+
+  passwordInput.type = isHidden ? 'text' : 'password';
+  this.textContent = isHidden ? '🙈' : '👁️';
+
+  this.setAttribute(
+    'aria-label',
+    isHidden ? 'Hide password' : 'Show password'
+  );
+});
+
 
 /* ---------- counter ---------- */
 ['YY','MM','DD','HH','MIN','SEC'].forEach(function(l,i){$('cnt').insertAdjacentHTML('beforeend','<div class="u"><b id="c'+i+'">--</b><small>'+l+'</small></div>')});
